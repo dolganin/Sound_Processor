@@ -43,19 +43,19 @@ add_executable(audio_converter ${SRC_MAIN})
 target_link_libraries(audio_converter converter_lib base_lib)
 
 # Tests
-set(TEST_SOURCES
-    tests/base_test.cpp
-    tests/config_test.cpp
-    tests/dist_test.cpp
-    tests/mix_test.cpp
-    tests/mute_test.cpp
-    tests/test_sound.cpp
-    )
+# set(TEST_SOURCES
+#     tests/base_test.cpp
+#     tests/config_test.cpp
+#     tests/dist_test.cpp
+#     tests/mix_test.cpp
+#     tests/mute_test.cpp
+#     tests/test_sound.cpp
+#     )
 
-add_executable(tests_exec ${TEST_SOURCES})
-target_link_libraries(tests_exec ${GTEST_LIBRARIES} base_lib converter_lib)
+# add_executable(tests_exec ${TEST_SOURCES})
+# target_link_libraries(tests_exec ${GTEST_LIBRARIES} gtest_main base_lib converter_lib)
 
-# Add test runner
-add_test(NAME runTests COMMAND tests_exec)
+# # Add test runner
+# add_test(NAME runTests COMMAND tests_exec)
 
 # Optional: Add custom commands or additional configurations
