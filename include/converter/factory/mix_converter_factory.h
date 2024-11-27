@@ -5,7 +5,7 @@
 
 class MixConverterFactory : public ConverterFactory {
 public:
-    Converter* createConverter(int number, int start, const std::vector<Sound>& songs) override;
+    Converter* createConverter(int number, int start, const std::vector<Sound>& songs);
 };
 
 #endif // MIX_CONVERTER_FACTORY_H

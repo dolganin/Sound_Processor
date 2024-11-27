@@ -7,8 +7,8 @@ MixConverter::MixConverter(int number, int start, const std::vector<Sound>& song
 std::vector<std::int16_t> MixConverter::convert() {
     std::cout << "MixConverter: Смешивание " << number << " с " << start << std::endl;
     start *= 44100;
-    std::vector<std::int16_t> inp1 = songs[1].samples;
-    std::vector<std::int16_t> inp2 = songs[number].samples;
+    std::vector<std::int16_t> inp1(songs[1].getSamples());
+    std::vector<std::int16_t> inp2(songs[number].getSamples());
     int finish1 = inp1.size();
     int finish2 = inp2.size();
     int fin = (finish1 > finish2) ? finish2 : finish1;

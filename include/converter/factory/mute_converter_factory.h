@@ -5,7 +5,7 @@
 
 class MuteConverterFactory : public ConverterFactory {
 public:
-    Converter* createConverter(int start, int finish, const std::vector<Sound>& songs) override;
+    Converter* createConverter(int start, int finish, const std::vector<Sound>& songs, int sampleRate) override;
 };
 
 #endif // MUTE_CONVERTER_FACTORY_H

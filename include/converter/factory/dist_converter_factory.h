@@ -5,7 +5,7 @@
 
 class DistConverterFactory : public ConverterFactory {
 public:
-    Converter* createConverter(int clip, int start, const std::vector<Sound>& songs) override;
+    Converter* createConverter(int clip, int start, const std::vector<Sound>& songs);
 };
 
 #endif // DIST_CONVERTER_FACTORY_H

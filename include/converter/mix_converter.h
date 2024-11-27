@@ -3,8 +3,7 @@
 
 #include "converter.h"
 #include <vector>
-
-class Sound;
+#include "include/base/wav_parser.h"  // Include the full definition of Sound
 
 class MixConverter : public Converter {
 public:
