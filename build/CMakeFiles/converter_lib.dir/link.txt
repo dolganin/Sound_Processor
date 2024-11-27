@@ -1,2 +1,0 @@
-/usr/bin/ar qc libconverter_lib.a CMakeFiles/converter_lib.dir/src/base/converter/dist_converter.cpp.o CMakeFiles/converter_lib.dir/src/base/converter/factory/dist_converter_factory.cpp.o CMakeFiles/converter_lib.dir/src/base/converter/factory/mix_converter_factory.cpp.o CMakeFiles/converter_lib.dir/src/base/converter/factory/mute_converter_factory.cpp.o CMakeFiles/converter_lib.dir/src/base/converter/mix_converter.cpp.o CMakeFiles/converter_lib.dir/src/base/converter/mute_converter.cpp.o
-/usr/bin/ranlib libconverter_lib.a

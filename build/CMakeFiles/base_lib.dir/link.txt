@@ -1,2 +1,0 @@
-/usr/bin/ar qc libbase_lib.a CMakeFiles/base_lib.dir/src/base/config_parser.cpp.o CMakeFiles/base_lib.dir/src/base/wav_parser.cpp.o
-/usr/bin/ranlib libbase_lib.a

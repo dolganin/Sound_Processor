@@ -1,5 +1,0 @@
-/home/bolgarin/workspace/code/Sound_Processor/build/CMakeFiles/base_lib.dir
-/home/bolgarin/workspace/code/Sound_Processor/build/CMakeFiles/converter_lib.dir
-/home/bolgarin/workspace/code/Sound_Processor/build/CMakeFiles/audio_converter.dir
-/home/bolgarin/workspace/code/Sound_Processor/build/CMakeFiles/edit_cache.dir
-/home/bolgarin/workspace/code/Sound_Processor/build/CMakeFiles/rebuild_cache.dir
