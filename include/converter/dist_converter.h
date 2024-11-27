@@ -7,12 +7,13 @@
 
 class DistConverter : public Converter {
 public:
-    DistConverter(int clip, int start, const std::vector<Sound>& songs);
+    DistConverter(int clip, int start, const std::vector<Sound>& songs, int sampleRate);
     std::vector<int16_t> convert() override;
 private:
     int clip;
     int start;
     const std::vector<Sound>& songs;
+    int sampleRate;
 };
 
 #endif // DIST_CONVERTER_H

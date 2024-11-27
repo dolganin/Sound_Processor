@@ -37,6 +37,15 @@ public:
     // Public accessor functions for samples
     const std::vector<int16_t>& getSamples() const { return samples; }
     std::vector<int16_t>& getSamples() { return samples; }
+
+    void setSamples(const std::vector<int16_t>& samples) {
+        this->samples = samples;
+    }
+
+    // New method to get the header
+    WAVHeader& getHeader() { return header; }
+
+    int getSampleRate() const { return header.sampleRate; }
 };
 
 #endif // SOUND_H

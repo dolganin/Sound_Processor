@@ -56,6 +56,6 @@ add_executable(tests_exec ${TEST_SOURCES})
 target_link_libraries(tests_exec ${GTEST_LIBRARIES} base_lib converter_lib)
 
 # Add test runner
-add_test(NAME tests COMMAND tests_exec)
+add_test(NAME runTests COMMAND tests_exec)
 
 # Optional: Add custom commands or additional configurations

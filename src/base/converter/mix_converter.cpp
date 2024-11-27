@@ -1,12 +1,12 @@
 #include "include/converter/mix_converter.h"
 #include <iostream>
 
-MixConverter::MixConverter(int number, int start, const std::vector<Sound>& songs)
-    : number(number), start(start), songs(songs) {}
+MixConverter::MixConverter(int number, int start, const std::vector<Sound>& songs, int sampleRate)
+    : number(number), start(start), songs(songs), sampleRate(sampleRate) {}
 
 std::vector<std::int16_t> MixConverter::convert() {
     std::cout << "MixConverter: Смешивание " << number << " с " << start << std::endl;
-    start *= 44100;
+    start *= sampleRate; // Используем sampleRate вместо жестко заданного значения 44100
     std::vector<std::int16_t> inp1(songs[1].getSamples());
     std::vector<std::int16_t> inp2(songs[number].getSamples());
     int finish1 = inp1.size();

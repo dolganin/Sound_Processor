@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Function to clean up the build directory
+cleanup() {
+  echo "Cleaning up the build directory..."
+  cd ..
+  rm -rf build
+  echo "Script completed."
+}
+
+# Trap errors and call the cleanup function
+trap cleanup ERR
+
 # Check if the build directory exists
 if [ -d "build" ]; then
   echo "The 'build' directory exists, removing it..."
@@ -18,8 +29,8 @@ make
 
 # Copy the executable files to the parent directory
 echo "Copying the executable files to the parent directory..."
-cp game ../
 cp runTests ../
+cp audio_converter ../
 
 # Go back to the parent directory
 cd ..

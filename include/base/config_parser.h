@@ -3,15 +3,13 @@
 
 #include <vector>
 #include <string>
-#include <sstream>
 
 class ConfigParser {
-private:
-    std::vector<std::string> splitString(const std::string& str, char delimiter);
 public:
+    std::vector<std::string> splitString(const std::string& str, char delimiter);
     int readConfig(const std::string& filename);
-    std::vector<std::vector<int>> argum;
     std::vector<std::string> commands;
+    std::vector<std::vector<int>> argum;
 };
 
 #endif // CONFIG_PARSER_H

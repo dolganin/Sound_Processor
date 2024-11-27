@@ -1,6 +1,7 @@
 #include "include/base/config_parser.h"
 #include <fstream>
 #include <iostream>
+#include <sstream> // Добавленный заголовочный файл
 
 std::vector<std::string> ConfigParser::splitString(const std::string& str, char delimiter) {
     std::vector<std::string> tokens;

@@ -7,12 +7,13 @@
 
 class MixConverter : public Converter {
 public:
-    MixConverter(int number, int start, const std::vector<Sound>& songs);
+    MixConverter(int number, int start, const std::vector<Sound>& songs, int sampleRate);
     std::vector<int16_t> convert() override;
 private:
     int number;
     int start;
     const std::vector<Sound>& songs;
+    int sampleRate;
 };
 
 #endif // MIX_CONVERTER_H
