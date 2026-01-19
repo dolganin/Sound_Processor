@@ -24,9 +24,6 @@ struct WAVHeader {
 class Sound {
 private:
     WAVHeader header;
-    std::vector<int16_t> audioData;
-    std::vector<char> data_label;
-    std::vector<uint32_t> sample_size;
     std::vector<int16_t> samples;
 
 public:

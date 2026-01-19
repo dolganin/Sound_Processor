@@ -10,15 +10,15 @@ protected:
         // Initialize sample sounds
         Sound primarySound;
         primarySound.setSamples({1, 2, 3, 4, 5});
-        primarySound.getHeader().sampleRate = 44100; // Set sample rate for primary sound
+        primarySound.getHeader().sampleRate = 1;
         songs.push_back(primarySound);
 
         Sound secondarySound;
         secondarySound.setSamples({6, 7, 8, 9, 10});
-        secondarySound.getHeader().sampleRate = 44100; // Set sample rate for secondary sound
+        secondarySound.getHeader().sampleRate = 1;
         songs.push_back(secondarySound);
 
-        sampleRate = 44100; // 44100 samples per second
+        sampleRate = 1;
     }
 
     virtual void TearDown() {

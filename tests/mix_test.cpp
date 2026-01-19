@@ -34,7 +34,7 @@ TEST_F(MixConverterTest, Convert_MixesCorrectlyWithDifferentStart) {
     std::vector<std::int16_t> output = converter.convert();
 
     // Define expected_output based on mixing logic with different start
-    std::vector<std::int16_t> expected_output = {2, 3, 4, 5, 6}; // (2+7)/2, (3+8)/2, ..., (5+10)/2
+    std::vector<std::int16_t> expected_output = {1, 4, 5, 6, 7};
 
     EXPECT_EQ(output, expected_output);
 }

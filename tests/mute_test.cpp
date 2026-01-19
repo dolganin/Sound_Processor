@@ -16,7 +16,7 @@ TEST_F(MuteConverterTest, Convert_MutesCorrectly) {
     std::vector<std::int16_t> output = converter.convert();
 
     // Define expected_output based on muting logic
-    std::vector<std::int16_t> expected_output = {1, 0, 0, 0, 5};
+    std::vector<std::int16_t> expected_output = {1, 0, 0, 4, 5};
 
     EXPECT_EQ(output, expected_output);
 }

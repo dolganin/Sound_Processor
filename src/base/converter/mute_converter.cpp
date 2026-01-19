@@ -1,6 +1,5 @@
 #include "include/converter/mute_converter.h"
 #include <vector>
-#include <iostream>
 
 MuteConverter::MuteConverter(int start, int finish, const std::vector<Sound>& songs, int sampleRate)
     : start(start), finish(finish), songs(songs), sampleRate(sampleRate)
@@ -9,27 +8,43 @@ MuteConverter::MuteConverter(int start, int finish, const std::vector<Sound>& so
 
 std::vector<int16_t> MuteConverter::convert()
 {
-    std::vector<int16_t> output;
+    if (songs.empty()) {
+        return {};
+    }
+    std::vector<int16_t> output = songs[0].getSamples();
+    if (output.empty()) {
+        return output;
+    }
+    if (sampleRate <= 0) {
+        return output;
+    }
 
-    int startIndex = start * sampleRate;
-    int finishIndex = finish * sampleRate;
-
-    // Ensure indices are within bounds
+    long long startIndex = static_cast<long long>(start) * sampleRate;
+    long long finishIndex = static_cast<long long>(finish) * sampleRate;
+    if (finishIndex < startIndex) {
+        long long temp = startIndex;
+        startIndex = finishIndex;
+        finishIndex = temp;
+    }
+    if (finishIndex <= 0) {
+        return output;
+    }
     if (startIndex < 0) {
         startIndex = 0;
     }
-    if (!songs.empty()) {
-        const auto& samples = songs[0].getSamples();
-        if (finishIndex > samples.size()) {
-            finishIndex = samples.size();
-        }
-        if (startIndex < samples.size()) {
-            if (finishIndex > samples.size()) {
-                finishIndex = samples.size();
-            }
-            output = std::vector<int16_t>(samples.begin() + startIndex, samples.begin() + finishIndex);
-        }
+
+    size_t size = output.size();
+    size_t startPos = static_cast<size_t>(startIndex);
+    size_t finishPos = static_cast<size_t>(finishIndex);
+    if (startPos >= size) {
+        return output;
+    }
+    if (finishPos > size) {
+        finishPos = size;
     }
 
+    for (size_t i = startPos; i < finishPos; ++i) {
+        output[i] = 0;
+    }
     return output;
 }

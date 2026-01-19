@@ -4,6 +4,7 @@
 #include <sstream>
 #include <unistd.h>
 #include <string>
+#include <memory>
 #include "include/base/wav_parser.h"
 #include "include/base/config_parser.h"
 #include "include/converter/factory/dist_converter_factory.h"
@@ -52,8 +53,12 @@ int main(int argc, char **argv) {
     for (int i = optind; i < argc; ++i) {
         songnames.push_back(std::string(argv[i]));
         Sound song;
-        song.getHeader(std::string(argv[i]));
-        song.checkFile();
+        if (song.getHeader(std::string(argv[i])) != 0) {
+            return 1;
+        }
+        if (song.checkFile() != 1) {
+            return 1;
+        }
         songs.push_back(song);
     }
 
@@ -63,9 +68,17 @@ int main(int argc, char **argv) {
     }
 
     int sampleRate = songs[0].getSampleRate();
+    for (size_t i = 1; i < songs.size(); ++i) {
+        if (songs[i].getSampleRate() != sampleRate) {
+            std::cerr << "Sample rate mismatch between input files." << std::endl;
+            return 1;
+        }
+    }
 
     ConfigParser parser;
-    parser.readConfig(std::string(configFile));
+    if (parser.readConfig(std::string(configFile)) != 0) {
+        return 1;
+    }
     int k = 0;
 
     for (std::string& command : parser.commands) {
@@ -74,45 +87,43 @@ int main(int argc, char **argv) {
                 std::cerr << "Missing arguments for mute command." << std::endl;
                 return 1;
             }
-            if (songs.size() < 2) {
-                std::cerr << "Not enough songs to apply mute." << std::endl;
+            if (parser.argum[k].size() < 2) {
+                std::cerr << "Not enough arguments for mute command." << std::endl;
                 return 1;
             }
-            ConverterFactory* factory = new MuteConverterFactory();
-            Converter* muteConverter = factory->createConverter(parser.argum[k][0], parser.argum[k][1], songs, sampleRate);
-            songs[1].setSamples(muteConverter->convert());
-            delete muteConverter;
-            delete factory;
+            MuteConverterFactory factory;
+            std::unique_ptr<Converter> muteConverter(factory.createConverter(parser.argum[k][0], parser.argum[k][1], songs, sampleRate));
+            songs[0].setSamples(muteConverter->convert());
             k++;
         } else if (command == "dist") {
             if (k >= parser.argum.size()) {
                 std::cerr << "Missing arguments for dist command." << std::endl;
                 return 1;
             }
-            if (songs.size() < 2) {
-                std::cerr << "Not enough songs to apply distortion." << std::endl;
+            if (parser.argum[k].size() < 2) {
+                std::cerr << "Not enough arguments for dist command." << std::endl;
                 return 1;
             }
-            ConverterFactory* factory = new DistConverterFactory();
-            Converter* distConverter = factory->createConverter(parser.argum[k][0], parser.argum[k][1], songs, sampleRate);
-            songs[1].setSamples(distConverter->convert());
-            delete distConverter;
-            delete factory;
+            DistConverterFactory factory;
+            std::unique_ptr<Converter> distConverter(factory.createConverter(parser.argum[k][0], parser.argum[k][1], songs, sampleRate));
+            songs[0].setSamples(distConverter->convert());
             k++;
         } else if (command == "mix") {
             if (k >= parser.argum.size()) {
                 std::cerr << "Missing arguments for mix command." << std::endl;
                 return 1;
             }
+            if (parser.argum[k].size() < 2) {
+                std::cerr << "Not enough arguments for mix command." << std::endl;
+                return 1;
+            }
             if (songs.size() < 2) {
                 std::cerr << "Not enough songs to apply mix." << std::endl;
                 return 1;
             }
-            ConverterFactory* factory = new MixConverterFactory();
-            Converter* mixConverter = factory->createConverter(parser.argum[k][0], parser.argum[k][1], songs, sampleRate);
-            songs[1].setSamples(mixConverter->convert());
-            delete mixConverter;
-            delete factory;
+            MixConverterFactory factory;
+            std::unique_ptr<Converter> mixConverter(factory.createConverter(parser.argum[k][0], parser.argum[k][1], songs, sampleRate));
+            songs[0].setSamples(mixConverter->convert());
             k++;
         } else {
             std::cerr << "Unknown command: " << command << std::endl;
@@ -120,12 +131,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    if (songs.size() > 1) {
-        songs[1].writeFile(outputFile);
-    } else {
-        std::cerr << "No song to write output." << std::endl;
-        return 1;
-    }
+    songs[0].writeFile(outputFile);
 
     return 0;
 }
